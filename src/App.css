@@ -1,8 +1,5 @@
 .App {
   text-align: center;
-}
-
-.App-main {
   background-color: #3b517c;
   min-height: 100vh;
   display: flex;

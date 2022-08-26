@@ -1,49 +1,41 @@
 import React from "react";
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 
-export function Form(props) {
-    const {inputProps, textareaProps, addMessage, messages} = props;
+export const Form = ({onSendMessage}) => {
+
+    const [message, setMessage] = useState('');
+
+    const handleChange = (event) => { // Обработчик отправки формы
+        setMessage(event.target.value);
+    }
+
     const inputRef = useRef(null);
 
     useEffect(() => {
         inputRef.current?.focus();
-    }, [messages]);
-
-    function resetFormFields() { // Очистка формы
-        inputProps.reset();
-        textareaProps.reset();
-    }
-
-    const handleChange = (event) => { // Обработчик отправки формы
-        event.preventDefault();
-        addMessage();
-        resetFormFields();
-    }
+    }, [message]);
 
     return (            
-        <form>
+        <div className="form">
             <TextField
                 inputRef={inputRef}
                 sx={{
-                    '& > :not(style)': { m: 1, width: '25ch', fontSize: '25px', textAlign: 'left' },
-                    }}
-                label="Введите Ваше имя"
-                {...props.inputProps}/>
-
-            <TextField
-                sx={{
-                    '& > :not(style)': { m: 1, width: '49ch', fontSize: '25px', textAlign: 'left' },  
+                    '& > :not(style)': { m: 1, width: '49ch', color: 'white', fontSize: '25px', textAlign: 'left' },  
                 }}
                 label="Введите сообщение"
-                {...props.textareaProps}/>
-
-            <Button
+                value={message}
+                onChange={handleChange}
+            />
+            <Button onClick={() => {
+                onSendMessage(message);
+                setMessage('');
+                }}
                 sx={{
+                    color: 'white',
                     fontSize: '30px'
                 }}
-            onClick={handleChange}
             >ОТПРАВИТЬ</Button>
-        </form>
+        </div>
     )
 }
