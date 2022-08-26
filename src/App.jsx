@@ -1,17 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Message } from './components/Message';
-import { RenderPage } from './components/RenderPage';
+import { Box, CssBaseline } from '@mui/material';
+import { NavbarPanel } from './components/navbar';
+
+const makeAppStyles = (theme) => {
+  const { mode, background, grey } = theme.palette;
+  return {
+    background: mode === 'light' ? background.paper : grey[800],
+  }
+};
 
 function App() {
   
   return (
     
-    <div className="App">
-      <header className="App-header">
-        <RenderPage />
-      </header>
-    </div>
+    <>
+      <CssBaseline />
+      <Box sx={makeAppStyles}>
+        <div className="App">
+          <NavbarPanel />
+        </div>
+      </Box>
+    </>
   );
 }
 
