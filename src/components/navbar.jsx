@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import {AppBar, Button, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Switch, Route, Routes } from 'react-router-dom';
 import '../components/style.css';
 import { Homepage } from '../pages/home-page';
 import { Profile } from '../pages/profile-page';
@@ -52,15 +52,18 @@ function addChat() {
             </Typography>
             <ColorModeSwitch />
           </Toolbar>
-          <Switch>
+          
+          {/* Изменил Switch, так как в package router6 Андрей */}
+          <Routes>
 
-            <Route exact path="/profile/" component={Profile} />
+            {/* Переделал роуты под 6 версию (component заменил на element) Андрей */}
+            <Route exact path="/profile/" element={<Profile/>} />
 
-            <Route exact path="/chats/" > <Chats chats={chatList} addChat={addChat} /> </Route>
+            <Route exact path="/chats/" element = {<Chats chats={chatList} addChat={addChat} /> }/>
+        
+            <Route exact path="/Chat/" element={<Chat/>} />
 
-            <Route exact path="/Chat/" component={Chat} />
-
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/" element={<Homepage/>} />
 
             <Route
               path="/:name?"
@@ -74,7 +77,7 @@ function addChat() {
               }}
             />
 
-          </Switch>
+          </Routes>
         </BrowserRouter>
       </AppBar>
     </Box>
